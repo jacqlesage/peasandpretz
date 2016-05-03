@@ -66,8 +66,9 @@ public class Grid {
 //                count++;
 //            
 //        }
-        for (int i = 0; i <= pea.size(); i++) {
-            for (int x = 0; x <= pea.size(); x++) {
+        //System.out.println(grid.length);
+        for (int i = 0; i <= grid.length-1; i++) {
+            for (int x = 0; x <= grid.length-1; x++) {
                
                 for(int j = 0; j <  pea.size(); j++){
                 //System.out.println(x);
@@ -84,7 +85,7 @@ public class Grid {
                 if (pTemp < 0 || pzTemp < 0) {
                     //System.out.println(grid[0][x]);
 //                 grid[0][x] = true;
-                } else if (grid[pTemp][pzTemp] == true) {
+                } else if (pTemp < grid.length && pzTemp < grid.length && grid[pTemp][pzTemp] == true) {
 //                    System.out.println(" i " + i + " x " + x +" j "+ j);
 //                    System.out.println("p " + p + " pz " + pz );
 //                    System.out.println("$$$#$#$#$#" );

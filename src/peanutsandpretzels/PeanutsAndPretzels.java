@@ -39,7 +39,7 @@ public class PeanutsAndPretzels {
         int totalMovesList[][];
 
         try {
-            FileInputStream is = new FileInputStream(new File("C:\\Users\\James\\Documents\\NetBeansProjects\\PeanutsAndPretzels\\src\\peanutsAndpretzels\\input.txt"));
+            FileInputStream is = new FileInputStream(new File("C:\\Users\\James\\Documents\\NetBeansProjects\\PeanutsAndPretzels\\src\\peanutsandpretzels\\input.txt"));
             System.setIn(is);
 
         } catch (FileNotFoundException e) {
@@ -85,7 +85,8 @@ public class PeanutsAndPretzels {
         listPeanuts.add(1);
         listPretzel.add(0);
 
-        grid = new boolean[listPeanuts.size()+1][listPeanuts.size()+1];
+//        System.out.println(Integer.valueOf(totalPea) + "JIHKJH");
+        grid = new boolean[Integer.valueOf(totalPea)+1][Integer.valueOf(totalPretz)+1];
         //totalMovesList = new int [listPeanuts.size() + 2][listPeanuts.size() + 2];
         //System.out.println(grid.length);
 
@@ -97,10 +98,10 @@ public class PeanutsAndPretzels {
         }
         //boolean movesEffect = Player.movesEffectOutcome(totalPea, totalPretz, listPeanuts, listPretzel);
         //System.out.println(movesEffect);
-        Player p = new Player(1, listPeanuts, listPretzel, totalPea, totalPretz);
+//        Player p = new Player(1, listPeanuts, listPretzel, totalPea, totalPretz);
         
         Grid g = new Grid(grid);
-        System.out.println(grid.length + "@#@#!");
+        System.out.println(grid + "@#@#!");
         g.buildGrid(grid, listPeanuts, listPretzel);
         //boolean x = Player.canWin(totalPea, totalPretz, p);
         //System.out.println(x);

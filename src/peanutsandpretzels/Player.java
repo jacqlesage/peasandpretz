@@ -15,16 +15,13 @@ import java.util.Iterator;
 public class Player {
     
    public int playerNumber;
-    public ArrayList<Integer> pea;
-    public ArrayList<Integer> pretz;
-    int totalpeanuts;
-    int totalpretz;
+   public boolean grid[][];
     
-    public Player (int playerNumber, ArrayList<Integer> pea, ArrayList<Integer> pretz, int totalPeanuts, int totalPretz){
+    public Player (int playerNumber, boolean grid[][]){
     
         this.playerNumber = playerNumber;
-        this.pea = pea;
-        this.pretz = pretz;
+        this.grid = grid;
+    
     
     }
 
@@ -32,42 +29,22 @@ public class Player {
         return playerNumber;
     }
 
-    public int getTotalpeanuts() {
-        return totalpeanuts;
-    }
-
-    public void setTotalpeanuts(int totalpeanuts) {
-        this.totalpeanuts = totalpeanuts;
-    }
-
-    public int getTotalpretz() {
-        return totalpretz;
-    }
-
-    public void setTotalpretz(int totalpretz) {
-        this.totalpretz = totalpretz;
-    }
-
     public void setPlayerNumber(int playerNumber) {
         this.playerNumber = playerNumber;
     }
 
-    public ArrayList<Integer> getPea() {
-        return pea;
+    public boolean[][] getGrid() {
+        return grid;
     }
 
-    public void setPea(ArrayList<Integer> pea) {
-        this.pea = pea;
+    public void setGrid(boolean[][] grid) {
+        this.grid = grid;
     }
 
-    public ArrayList<Integer> getPretz() {
-        return pretz;
-    }
 
-    public void setPretz(ArrayList<Integer> pretz) {
-        this.pretz = pretz;
-    }
-
+  
+    
+    
    
     
     
@@ -147,7 +124,7 @@ public class Player {
 //        }
 //        
 //    }
-    
+
     
     
 }
