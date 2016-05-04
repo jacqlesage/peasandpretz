@@ -29,77 +29,43 @@ public class Grid {
 
         //0 0 in the grid is a sad place/false: True = sad i.e 0,0
         grid[0][0] = false;
-//
-//        for (int x = 0; x < pea.size(); x++) {
-//
-//            p = pea.get(0);
-//            pz = pretz.get(0);
-//
-//            pTemp = p - 0;
-//            pzTemp = pz - (x);
-//
-//            if (pTemp < 0 || pzTemp < 0) {
-//                //System.out.println(grid[0][x]);
-////                 grid[0][x] = true;
-//            } else if (grid[pTemp][pzTemp] == true) {
-//                //System.out.println("matched a sad case statement");
-//                grid[0][x] = true;
-//
-//            }
-//
-//        }
-//        for (boolean[] x : grid) {
-//            System.out.println(Arrays.toString(x));
-//        }
 
-        //********End of creating the first line - now to complete the remainder of the table.
-//                p = pea.get(count);
-//                pz = pretz.get(count);
-//                System.out.print(p);
-//                System.out.println("**** " + pz);
-//                System.out.print("0");
-//                System.out.println("%%%% " + i);
-//                pTemp =  p - 0;
-//                pzTemp = pz - i;
-//                System.out.print(pTemp);
-//                System.out.println(" " + pzTemp);
-//                count++;
-//            
-//        }
-        //System.out.println(grid.length);
-        for (int i = 0; i <= grid.length-1; i++) {
-            for (int x = 0; x <= grid.length-1; x++) {
-               
-                for(int j = 0; j <  pea.size(); j++){
-                //System.out.println(x);
-                p = pea.get(j);
-                pz = pretz.get(j);
-                
-                //System.out.println("i " + i + " x " + x );
-                //System.out.println("p " + p + " pz " + pz );
-                pTemp = p - i;
-                pzTemp = pz - (x);
-//               System.out.println("p " + p + " pz " + pz );
-//               System.out.println("pTemp " + pTemp + " pzTemp " + pzTemp );
-//                    System.out.println("^^^^^^^^^^^^");
-                if (pTemp < 0 || pzTemp < 0) {
-                    //System.out.println(grid[0][x]);
-//                 grid[0][x] = true;
-                } else if (pTemp < grid.length && pzTemp < grid.length && grid[pTemp][pzTemp] == true) {
-//                    System.out.println(" i " + i + " x " + x +" j "+ j);
-//                    System.out.println("p " + p + " pz " + pz );
-//                    System.out.println("$$$#$#$#$#" );
-                    grid[i][x] = true;
+        //System.out.println(grid[0].length);
+        //go through each row in the grid
+        for (int i = 0; i <= grid.length - 1; i++) {
+            //go through each column in the grid
+            for (int x = 0; x <= grid[0].length- 1; x++) {
+                //go through each move in the moves list
+                System.out.println("i " + i + "x " + x);
+                for (int j = 0; j < pea.size(); j++) {
+                    //System.out.println(x);
+                    //get the value of each move int the moves list
+                    p = pea.get(j);
+                    pz = pretz.get(j);
 
-                }else if (pTemp == 0 && pzTemp == 0 ){
-//            
-                     grid[i][x] = true;
-                    
+                    //minus the moves numbers from the row and index numbers
+                    pTemp = i - p;
+                    pzTemp = (x) - 
+                            pz;
+                    //if p/pztemp < the grid size then do nothing with that calculation
+                    if (pTemp < 0 || pzTemp < 0) {
+                          System.out.println("p = " + p + ", pz" + pz + " =false" + "& neg " + " pTemp = " + pTemp + ", pzTemp" + pzTemp);
+                        //if p/pztemp is not outside the grid size - if the position at that grid space is true ie
+                        //it is a move that will lead to a happy spot then mark it true
+                    } else if (pTemp < grid.length-1 && pzTemp < grid[0].length && grid[pTemp][pzTemp] == false) {
+                        System.out.println("p = " + p + ", pz" + pz + " =true " + " pTemp = " + pTemp + ", pzTemp" + pzTemp);
+                        grid[i][x] = true;
+
+                    } else if (pTemp == 0 && pzTemp == 0) {
+                         System.out.println("p = " + p + ", pz" + pz + " =true " + " pTemp = " + pTemp + ", pzTemp" + pzTemp);
+                        grid[i][x] = true;
+
+                    } else {
+                        System.out.println("p = " + p + ", pz" + pz + " =false " + " pTemp = " + pTemp + ", pzTemp" + pzTemp);
+                    }
                 }
 
             }
-
-          }
         }
         for (boolean[] x : grid) {
             System.out.println(Arrays.toString(x));

@@ -30,9 +30,7 @@ public class PeanutsAndPretzels {
         boolean line1 = true;
         int temp = 0;
         int count = 0;
-        String[] movesList = new String[10];
-        char[] peanutsMoveList = new char[10];
-        char[] pretzelsMoveList = new char[10];
+        String movesList[];
         ArrayList<Integer> listPeanuts = new ArrayList<Integer>();
         ArrayList<Integer> listPretzel = new ArrayList<Integer>();
         boolean grid[][];
@@ -62,13 +60,14 @@ public class PeanutsAndPretzels {
 
             } else {
 
-                movesList[count] = s;
-                peanutsMoveList[count] = movesList[count].charAt(temp);
-                pretzelsMoveList[count] = movesList[count].charAt(temp + 2);
+                movesList = s.split(" ");
 
-                listPeanuts.add(Integer.parseInt(String.valueOf(peanutsMoveList[count])));
-                listPretzel.add(Integer.parseInt(String.valueOf(pretzelsMoveList[count])));
+                addMovesList(movesList, listPeanuts, listPretzel, totalPea, totalPretz);
 
+//                listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
+////                System.out.println("***" + movesList[0]);
+//                listPretzel.add(Integer.parseInt(String.valueOf(movesList[1])));
+////                System.out.println("###" + movesList[1]);
                 count++;
             }
 
@@ -79,47 +78,68 @@ public class PeanutsAndPretzels {
             count = 0;
 
         }
-
+        //add basic moves to moves list for processing
         listPeanuts.add(0);
         listPretzel.add(1);
         listPeanuts.add(1);
         listPretzel.add(0);
 
-//        System.out.println(Integer.valueOf(totalPea) + "JIHKJH");
-        grid = new boolean[Integer.valueOf(totalPea)+1][Integer.valueOf(totalPretz)+1];
-        //totalMovesList = new int [listPeanuts.size() + 2][listPeanuts.size() + 2];
-        //System.out.println(grid.length);
+        grid = new boolean[Integer.valueOf(totalPea) + 1][Integer.valueOf(totalPretz) + 1];
 
-        
-        for(int x : listPeanuts){
-            System.out.println("peanustsLIst = " + listPeanuts.toString());
-            System.out.println("pretzelList = " + listPretzel.toString());
-        
-        }
-        //boolean movesEffect = Player.movesEffectOutcome(totalPea, totalPretz, listPeanuts, listPretzel);
-        //System.out.println(movesEffect);
-//        Player p = new Player(1, listPeanuts, listPretzel, totalPea, totalPretz);
-        
+        System.out.println("peanustsLIst = " + listPeanuts.toString());
+        System.out.println("pretzelList = " + listPretzel.toString());
+
         Grid g = new Grid(grid);
         System.out.println(grid + "@#@#!");
         g.buildGrid(grid, listPeanuts, listPretzel);
-        //boolean x = Player.canWin(totalPea, totalPretz, p);
-        //System.out.println(x);
-//    
-//        switch (count) {
-//
-//            case 'N':
-//
-//                break;
-//
-//        }
 
     }
 
-    public static boolean bottomUp(int goalPea, int goalPretz, ArrayList<Integer> pea, ArrayList<Integer> pretz) {
-
-        boolean[] sadOrHappy;
-
-        return true;
+    private static void addMovesList(String[] movesList, ArrayList<Integer> listPeanuts, ArrayList<Integer> listPretzel, int totalPea, int totalPretz) {
+        
+        int temp;
+        
+        if (Character.isDigit(movesList[0].charAt(0)) && Character.isDigit(movesList[1].charAt(0))) {
+            listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
+//                System.out.println("***" + movesList[0]);
+            listPretzel.add(Integer.parseInt(String.valueOf(movesList[1])));
+//                System.out.println("###" + movesList[1]);
+        } else if (Character.isDigit(movesList[0].charAt(0)) && !Character.isDigit(movesList[1].charAt(0))){
+            
+                if(movesList[1].charAt(0)=='<'){
+                    
+                    temp = Integer.parseInt(movesList[1].substring(1));
+                    
+                    for(int i =0; i < temp; i++){
+                            listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
+                            //System.out.println(listPeanuts.get(0));
+                            listPretzel.add(i);   
+                            //System.out.println(listPretzel.get(i));
+                    }
+                    
+                }else{
+                
+                    temp = Integer.parseInt(movesList[1].substring(1));
+//                    System.out.print(temp + "JJJJJJ");
+                    for(int i =temp; i <= totalPretz; i++){
+                            listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
+                            System.out.print(listPeanuts.get(0));
+                            listPretzel.add(i);   
+                            System.out.println(" " + listPretzel.get(i));                 
+                    }
+                
+                }
+            
+            
+        }else if(!Character.isDigit(movesList[0].charAt(0)) && Character.isDigit(movesList[0].charAt(1))){
+            
+            
+            
+        }else if(!Character.isDigit(movesList[0].charAt(0)) && !Character.isDigit(movesList[0].charAt(1))){
+            
+            
+           
+        }
     }
+
 }
