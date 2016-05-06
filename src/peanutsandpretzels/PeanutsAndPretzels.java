@@ -27,9 +27,8 @@ public class PeanutsAndPretzels {
         String[] totalPAndP;
         int totalPea = 0;
         int totalPretz = 0;
-        boolean line1 = true;
-        int temp = 0;
         int count = 0;
+        boolean line1 = true;
         String movesList[];
         ArrayList<Integer> listPeanuts = new ArrayList<Integer>();
         ArrayList<Integer> listPretzel = new ArrayList<Integer>();
@@ -58,9 +57,10 @@ public class PeanutsAndPretzels {
 //                System.out.println(totalPea + " " + totalPretz);
                 line1 = false;
 
-            } else {
+            } else if (!s.equals("")) {
 
                 movesList = s.split(" ");
+//                System.out.println("movesList" + movesList.length);
 //                System.out.println("asdjklajk " + totalPretz);
                 addMovesList(movesList, listPeanuts, listPretzel, totalPea, totalPretz);
 
@@ -68,15 +68,34 @@ public class PeanutsAndPretzels {
 ////                System.out.println("***" + movesList[0]);
 //                listPretzel.add(Integer.parseInt(String.valueOf(movesList[1])));
 ////                System.out.println("###" + movesList[1]);
-                count++;
+            } else if (s.equals("")) {
+                //add basic moves to moves list for processing
+                listPeanuts.add(0);
+                listPretzel.add(1);
+                listPeanuts.add(1);
+                listPretzel.add(0);
+
+                grid = new boolean[Integer.valueOf(totalPea) + 1][Integer.valueOf(totalPretz) + 1];
+//                System.out.println("moves:");
+                for (int i = 0; i < listPeanuts.size(); i++) {
+//                    System.out.println(listPeanuts.get(i) + " " + listPretzel.get(i));
+                }
+
+//        System.out.println("peanustsLIst = " + listPeanuts.toString());
+//        System.out.println("pretzelList = " + listPretzel.toString());
+                Grid g = new Grid(grid, listPeanuts, listPretzel, totalPea, totalPretz);
+//                System.out.println(grid + "@#@#!");
+                g.buildGrid();
+                g.getOutput();
+//                System.out.println();
+
+                line1 = true;
+                totalPea = 0;
+                totalPretz = 0;
+                listPeanuts = new ArrayList<Integer>();
+                listPretzel = new ArrayList<Integer>();
             }
-
-        }
-
-        if (!in.hasNextLine()) {
-            line1 = true;
-            count = 0;
-
+            count++;
         }
         //add basic moves to moves list for processing
         listPeanuts.add(0);
@@ -85,125 +104,142 @@ public class PeanutsAndPretzels {
         listPretzel.add(0);
 
         grid = new boolean[Integer.valueOf(totalPea) + 1][Integer.valueOf(totalPretz) + 1];
+//        System.out.println("moves:");
+        for (int i = 0; i < listPeanuts.size(); i++) {
+//            System.out.println(listPeanuts.get(i) + " " + listPretzel.get(i));
+        }
 
-           System.out.println("peanustsLIst = " + listPeanuts.toString());
-           System.out.println("pretzelList = " + listPretzel.toString());
+//        System.out.println("peanustsLIst = " + listPeanuts.toString());
+//        System.out.println("pretzelList = " + listPretzel.toString());
+        Grid g = new Grid(grid, listPeanuts, listPretzel, totalPea, totalPretz);
+//        System.out.println(grid + "@#@#!");
+        g.buildGrid();
+        g.getOutput();
 
-        Grid g = new Grid(grid);
-        System.out.println(grid + "@#@#!");
-        g.buildGrid(grid, listPeanuts, listPretzel);
-
+        line1 = true;
+        totalPea = 0;
+        totalPretz = 0;
+        listPeanuts = new ArrayList<Integer>();
+        listPretzel = new ArrayList<Integer>();
     }
 
     private static void addMovesList(String[] movesList, ArrayList<Integer> listPeanuts, ArrayList<Integer> listPretzel, int totalPea, int totalPretz) {
 
         int temp;
-        
+        int temp2;
+
         if (Character.isDigit(movesList[0].charAt(0)) && Character.isDigit(movesList[1].charAt(0))) {
+//            System.out.println("case 1");
             listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
 //                System.out.println("***" + movesList[0]);
             listPretzel.add(Integer.parseInt(String.valueOf(movesList[1])));
 //                System.out.println("###" + movesList[1]);
-        } else if (Character.isDigit(movesList[0].charAt(0)) && !Character.isDigit(movesList[1].charAt(0))){
-            
-                if(movesList[1].charAt(0)=='<'){
-                    
-                    temp = Integer.parseInt(movesList[1].substring(1));
-                    
-                    for(int i =0; i < temp; i++){
-                            listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
-                            //System.out.println(listPeanuts.get(0));
-                            listPretzel.add(i);   
-                            //System.out.println(listPretzel.get(i));
-                    }
-                    
-                }else{
-                
-                    temp = Integer.parseInt(movesList[1].substring(1));
 
-                    
-                    for(int i =temp+1; i <= totalPretz; i++){
-                        System.out.println("i " + i);
-                            listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
-                            System.out.print(listPeanuts.get(0));
-                            listPretzel.add(i);   
-                             System.out.println("peanustsLIst = " + listPeanuts.toString());
-                             System.out.println("pretzelList = " + listPretzel.toString());                
-                    }
-                
+        } else if (Character.isDigit(movesList[0].charAt(0)) && !Character.isDigit(movesList[1].charAt(0))) {
+            if (movesList[1].charAt(0) == '<') {
+//                System.out.println("case 2.1");
+                temp = Integer.parseInt(movesList[1].substring(1));
+
+                for (int i = 0; i < temp; i++) {
+                    listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0]).substring(0)));
+                    //System.out.println(listPeanuts.get(0));
+                    listPretzel.add(i);
+                    //System.out.println(listPretzel.get(i));
                 }
-            
-            
-        }else if(!Character.isDigit(movesList[0].charAt(0)) && Character.isDigit(movesList[0].charAt(1))){
-            
-            if(movesList[0].charAt(0)=='<'){
-                    
-                    temp = Integer.parseInt(movesList[0].substring(1));
-                    
-                    for(int i =0; i < temp; i++){
-                            listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
-                            //System.out.println(listPeanuts.get(0));
-                            listPretzel.add(i);   
-                            //System.out.println(listPretzel.get(i));
-                    }
-                    
-                }else{
-                
-                    temp = Integer.parseInt(movesList[0].substring(1));
+            } else {
+//                System.out.println("case 2.2");
+                temp = Integer.parseInt(movesList[1].substring(1));
+
+                for (int i = temp + 1; i <= totalPretz; i++) {
+//                    System.out.println("i " + i);
+                    listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0]).substring(0)));
+//                    System.out.print(listPeanuts.get(0));
+                    listPretzel.add(i);
+//                    System.out.println("peanustsLIst = " + listPeanuts.toString());
+//                    System.out.println("pretzelList = " + listPretzel.toString());
+                }
+            }
+
+        } else if (!Character.isDigit(movesList[0].charAt(0)) && Character.isDigit(movesList[1].charAt(0))) {
+
+            if (movesList[0].charAt(0) == '<') {
+//                System.out.println("case 3.1");
+                temp = Integer.parseInt(movesList[0].substring(1));
+
+                for (int i = 0; i < temp; i++) {
+                    listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0]).substring(1)));
+                    //System.out.println(listPeanuts.get(0));
+                    listPretzel.add(i);
+                    //System.out.println(listPretzel.get(i));
+                }
+            } else {
+                temp = Integer.parseInt(movesList[0].substring(1));
+//                System.out.println("case 3.2");
 //                    System.out.print(temp + "JJJJJJ");
-                    for(int i =temp; i <= totalPretz; i++){
-                            listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
-                            System.out.print(listPeanuts.get(0));
-                            listPretzel.add(i);   
-                            System.out.println(" " + listPretzel.get(i));                 
-                    }
-                
+                for (int i = temp + 1; i <= totalPretz; i++) {
+                    listPretzel.add(Integer.parseInt(String.valueOf(movesList[1]).substring(0)));
+//                    System.out.print(listPeanuts.get(0));
+                    listPeanuts.add(i);
+//                    System.out.println(" " + listPretzel.get(i));
                 }
-            
-        }else if(!Character.isDigit(movesList[0].charAt(0)) && !Character.isDigit(movesList[0].charAt(1))){
-            //THen we know the other is greater than 
-             if(movesList[0].charAt(0)=='<'){
-                    
-                    temp = Integer.parseInt(movesList[0].substring(1));
-                    
-                    for(int i =0; i < temp; i++){
-                            listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
-                            //System.out.println(listPeanuts.get(0));
-                            listPretzel.add(i);   
-                            //System.out.println(listPretzel.get(i));
+            }
+
+        } else if (!Character.isDigit(movesList[0].charAt(0)) && !Character.isDigit(movesList[1].charAt(0))) {
+            if (movesList[0].charAt(0) == '<' && movesList[1].charAt(0) == '<') {
+//                System.out.println("case 4.1");
+                temp = Integer.parseInt(movesList[0].substring(1));
+                temp2 = Integer.parseInt(movesList[1].substring(1));
+
+                for (int i = 0; i < temp; i++) {
+                    for (int j = 0; j < temp2; j++) {
+//                        System.out.println("i: " + i + ", j: " + j);
+                        if (i == 0 && j == 0) {
+                            continue;
+                        }
+                        listPeanuts.add(i);
+                        listPretzel.add(j);
                     }
-                    
-                    temp = Integer.parseInt(movesList[1].substring(1));
-                    
-                     for(int i =temp; i < totalPea; i++){
-                            listPretzel.add(Integer.parseInt(String.valueOf(movesList[0])));
-                            //System.out.println(listPeanuts.get(0));
-                            listPretzel.add(i);   
-                            //System.out.println(listPretzel.get(i));
-                    }
-                    
-                }else{
-                 //THen we know the other is greater than
-                    temp = Integer.parseInt(movesList[0].substring(1));
-//                    System.out.print(temp + "JJJJJJ");
-                    for(int i =temp; i <= totalPretz; i++){
-                            listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
-                            System.out.print(listPeanuts.get(0));
-                            listPretzel.add(i);   
-                            System.out.println(" " + listPretzel.get(i));                 
-                    }
-                    
-                    temp = Integer.parseInt(movesList[0].substring(1));
-                    
-                    for(int i =0; i < temp; i++){
-                            listPeanuts.add(Integer.parseInt(String.valueOf(movesList[0])));
-                            //System.out.println(listPeanuts.get(0));
-                            listPretzel.add(i);   
-                            //System.out.println(listPretzel.get(i));
-                    }
-                
                 }
-           
+            }
+
+            if (movesList[0].charAt(0) == '>' && movesList[1].charAt(0) == '>') {
+//                System.out.println("case 4.2");
+                temp = Integer.parseInt(movesList[0].substring(1));
+                temp2 = Integer.parseInt(movesList[1].substring(1));
+
+                for (int i = temp + 1; i <= totalPea; i++) {
+                    for (int j = temp2 + 1; j <= totalPretz; j++) {
+                        listPeanuts.add(i);
+                        listPretzel.add(j);
+                    }
+                }
+            }
+
+            if (movesList[0].charAt(0) == '<' && movesList[1].charAt(0) == '>') {
+//                System.out.println("case 4.3");
+                temp = Integer.parseInt(movesList[0].substring(1));
+                temp2 = Integer.parseInt(movesList[1].substring(1));
+
+                for (int i = 0; i < temp; i++) {
+                    for (int j = temp2 + 1; j <= totalPretz; j++) {
+                        listPeanuts.add(i);
+                        listPretzel.add(j);
+                    }
+                }
+            }
+
+            if (movesList[0].charAt(0) == '>' && movesList[1].charAt(0) == '<') {
+//                System.out.println("case 4.4");
+                temp = Integer.parseInt(movesList[0].substring(1));
+                temp2 = Integer.parseInt(movesList[1].substring(1));
+
+                for (int i = temp + 1; i <= totalPea; i++) {
+                    for (int j = 0; j < temp2; j++) {
+                        listPeanuts.add(i);
+                        listPretzel.add(j);
+                    }
+                }
+            }
         }
     }
 
