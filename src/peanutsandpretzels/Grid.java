@@ -14,14 +14,21 @@ import java.util.Arrays;
  */
 public class Grid {
 
-    boolean grid[][];
+    private boolean grid[][];
+    private ArrayList<Integer> pea;
+    private ArrayList<Integer> pretz;
+    private int totalPea;
+    private int totalPretz;
 
-    public Grid(boolean grid[][]) {
-
+    public Grid(boolean grid[][], ArrayList<Integer> pea, ArrayList<Integer> pretz, int totalPea, int totalPretz) {
         this.grid = grid;
+        this.pea = pea;
+        this.pretz = pretz;
+        this.totalPea = totalPea;
+        this.totalPretz = totalPretz;
     }
 
-    public void buildGrid(boolean grid[][], ArrayList<Integer> pea, ArrayList<Integer> pretz) {
+    public void buildGrid() {
 
         int p, pTemp = 0;
         int pz, pzTemp = 0;
@@ -45,8 +52,7 @@ public class Grid {
 
                     //minus the moves numbers from the row and index numbers
                     pTemp = i - p;
-                    pzTemp = (x) - 
-                            pz;
+                    pzTemp = (x) - pz;
                     //if p/pztemp < the grid size then do nothing with that calculation
                     if (pTemp < 0 || pzTemp < 0) {
 //                          System.out.println("p = " + p + ", pz" + pz + " =false" + "& neg " + " pTemp = " + pTemp + ", pzTemp" + pzTemp);
@@ -67,10 +73,24 @@ public class Grid {
 
             }
         }
-        for (boolean[] x : grid) {
-            System.out.println(Arrays.toString(x));
+//        for (boolean[] x : grid) {
+////            System.out.println(Arrays.toString(x));
+//        }
+    }
+    
+    public void getOutput() {
+        if (grid[totalPea][totalPretz] == false) {
+            System.out.println("0 0");
+        } else {
+            for (int i = 0; i < pea.size(); i++) {
+                int peanutIndex = totalPea - pea.get(i);
+                int pretzelIndex = totalPretz - pretz.get(i);
+                if (grid[peanutIndex][pretzelIndex] == false) {
+                    System.out.println(pea.get(i) + " " + pretz.get(i));
+                    return; 
+                }
+            }
         }
-
     }
 
 }
