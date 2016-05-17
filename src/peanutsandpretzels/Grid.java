@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package peanutsandpretzels;
+//package peanutsandpretzels;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +28,10 @@ public class Grid {
         this.totalPretz = totalPretz;
     }
 
+    /**
+     *
+     * build the boolean grid
+     */
     public void buildGrid() {
 
         int p, pTemp = 0;
@@ -41,7 +45,7 @@ public class Grid {
         //go through each row in the grid
         for (int i = 0; i <= grid.length - 1; i++) {
             //go through each column in the grid
-            for (int x = 0; x <= grid[0].length- 1; x++) {
+            for (int x = 0; x <= grid[0].length - 1; x++) {
                 //go through each move in the moves list
 //                System.out.println("i " + i + "x " + x);
                 for (int j = 0; j < pea.size(); j++) {
@@ -58,7 +62,7 @@ public class Grid {
 //                          System.out.println("p = " + p + ", pz" + pz + " =false" + "& neg " + " pTemp = " + pTemp + ", pzTemp" + pzTemp);
                         //if p/pztemp is not outside the grid size - if the position at that grid space is true ie
                         //it is a move that will lead to a happy spot then mark it true
-                    } else if (pTemp < grid.length-1 && pzTemp < grid[0].length && grid[pTemp][pzTemp] == false) {
+                    } else if (pTemp < grid.length - 1 && pzTemp < grid[0].length && grid[pTemp][pzTemp] == false) {
 //                        System.out.println("p = " + p + ", pz" + pz + " =true " + " pTemp = " + pTemp + ", pzTemp" + pzTemp);
                         grid[i][x] = true;
 
@@ -74,23 +78,36 @@ public class Grid {
             }
         }
 //        for (boolean[] x : grid) {
-////            System.out.println(Arrays.toString(x));
+//            System.out.println(Arrays.toString(x));
 //        }
     }
-    
+
+    /**
+     * A method for printing out the moves taken
+     */
     public void getOutput() {
+//        for (int i = 0; i < pea.size(); i++) {
+//            int peanutIndex = totalPea - pea.get(i);
+//            int pretzelIndex = totalPretz - pretz.get(i);
+//            System.out.println(peanutIndex + " " + pretzelIndex);
+//        }
+//        System.out.println("***");
         if (grid[totalPea][totalPretz] == false) {
             System.out.println("0 0");
         } else {
             for (int i = 0; i < pea.size(); i++) {
                 int peanutIndex = totalPea - pea.get(i);
                 int pretzelIndex = totalPretz - pretz.get(i);
-                if (grid[peanutIndex][pretzelIndex] == false) {
+//                System.out.println(peanutIndex + " " + pretzelIndex);
+                if (peanutIndex >= 0 && pretzelIndex >= 0 && grid[peanutIndex][pretzelIndex] == false) {
                     System.out.println(pea.get(i) + " " + pretz.get(i));
-                    return; 
+                    return;
                 }
             }
         }
     }
 
 }
+
+//3 10
+//<6 2
